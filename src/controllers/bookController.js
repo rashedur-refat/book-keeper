@@ -1,3 +1,4 @@
+const { Op } = require("sequelize");
 const Book = require("../models/Book");
 const Cart = require("../models/Cart");
 
@@ -67,10 +68,34 @@ async function deleteBook(req, res) {
 	}
 }
 
+async function searchBooks(req, res) {
+	try {
+		const { title, author, genre } = req.query;
+		console.log(title, author, genre);
+		const searchCriteria = {};
+		if (title) {
+			searchCriteria.title = { [Op.iLike]: `%${title}%` };
+		}
+		if (author) {
+			searchCriteria.author = { [Op.iLike]: `%${author}%` };
+		}
+		if (genre) {
+			searchCriteria.genre = { [Op.iLike]: `%${genre}%` };
+		}
+
+		const books = await Book.findAll({ where: searchCriteria });
+
+		res.status(200).json(books);
+	} catch (error) {
+		res.status(500).json({ message: "Internal server error" });
+	}
+}
+
 module.exports = {
 	createBook,
 	getAllBooks,
 	getBookById,
 	updateBook,
 	deleteBook,
+	searchBooks,
 };
