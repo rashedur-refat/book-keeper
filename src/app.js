@@ -5,6 +5,7 @@ const bodyParser = require("body-parser");
 const { authenticateToken } = require("./middlewares/authMiddleware");
 const authRoutes = require("./routes/authRoutes");
 const bookRoutes = require("./routes/bookRoutes");
+const cartRoutes = require("./routes/cartRoutes");
 
 dotenv.config();
 
@@ -16,6 +17,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use("/auth", authRoutes);
 app.use("/books", authenticateToken, bookRoutes);
+app.use("/carts", authenticateToken, cartRoutes);
 
 app.listen(port, () => {
 	console.log(`Server running on port ${port}`);

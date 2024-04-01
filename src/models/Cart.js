@@ -22,7 +22,8 @@ const Cart = sequelize.define(
 	},
 	{
 		tableName: "carts",
-		timestamps: false,
+		createdAt: "created_at",
+		updatedAt: "updated_at",
 	}
 );
 
