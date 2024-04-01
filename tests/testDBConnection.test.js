@@ -1,4 +1,4 @@
-const sequelize = require("../config/database");
+const sequelize = require("../src/config/database");
 
 describe("Database Connection", () => {
 	beforeAll(async () => {
