@@ -21,6 +21,7 @@
 		"swagger-ui-express": "^4.6.2"
 	},
 	"devDependencies": {
+		"jest": "^29.7.0",
 		"nodemon": "^2.0.21"
 	}
 }
