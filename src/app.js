@@ -1,7 +1,10 @@
 const express = require("express");
 const dotenv = require("dotenv");
-const authRoutes = require("./routes/AuthRoutes");
 const bodyParser = require("body-parser");
+
+const { authenticateToken } = require("./middlewares/authMiddleware");
+const authRoutes = require("./routes/authRoutes");
+const bookRoutes = require("./routes/bookRoutes");
 
 dotenv.config();
 
@@ -12,6 +15,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use("/auth", authRoutes);
+app.use("/books", authenticateToken, bookRoutes);
 
 app.listen(port, () => {
 	console.log(`Server running on port ${port}`);

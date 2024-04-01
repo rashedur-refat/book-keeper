@@ -1,20 +1,29 @@
 const { DataTypes } = require("sequelize");
 const sequelize = require("../config/database");
 
-const Cart = sequelize.define("Cart", {
-	userId: {
-		type: DataTypes.INTEGER,
-		allowNull: false,
+const Cart = sequelize.define(
+	"Cart",
+	{
+		userId: {
+			type: DataTypes.INTEGER,
+			allowNull: false,
+			field: "user_id",
+		},
+		bookId: {
+			type: DataTypes.INTEGER,
+			allowNull: false,
+			field: "book_id",
+		},
+		quantity: {
+			type: DataTypes.INTEGER,
+			allowNull: false,
+			defaultValue: 1,
+		},
 	},
-	bookId: {
-		type: DataTypes.INTEGER,
-		allowNull: false,
-	},
-	quantity: {
-		type: DataTypes.INTEGER,
-		allowNull: false,
-		defaultValue: 1,
-	},
-});
+	{
+		tableName: "carts",
+		timestamps: false,
+	}
+);
 
 module.exports = Cart;
