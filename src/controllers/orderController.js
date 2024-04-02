@@ -58,7 +58,23 @@ async function updateOrderStatus(req, res) {
 	}
 }
 
+async function getOrderHistory(req, res) {
+	try {
+		const { userId } = req.params;
+
+		const orderHistory = await Order.findAll({
+			where: { userId },
+			order: [["created_at", "DESC"]],
+		});
+
+		res.status(200).json(orderHistory);
+	} catch (error) {
+		res.status(500).json({ message: "Internal server error" });
+	}
+}
+
 module.exports = {
 	placeOrder,
 	updateOrderStatus,
+	getOrderHistory,
 };
