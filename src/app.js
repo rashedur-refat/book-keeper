@@ -6,6 +6,7 @@ const { authenticateToken } = require("./middlewares/authMiddleware");
 const authRoutes = require("./routes/authRoutes");
 const bookRoutes = require("./routes/bookRoutes");
 const cartRoutes = require("./routes/cartRoutes");
+const orderRoutes = require("./routes/orderRoutes");
 
 dotenv.config();
 
@@ -18,6 +19,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use("/auth", authRoutes);
 app.use("/books", authenticateToken, bookRoutes);
 app.use("/carts", authenticateToken, cartRoutes);
+app.use("/orders", authenticateToken, orderRoutes);
 
 app.listen(port, () => {
 	console.log(`Server running on port ${port}`);

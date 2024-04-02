@@ -7,14 +7,20 @@ const Order = sequelize.define(
 		userId: {
 			type: DataTypes.INTEGER,
 			allowNull: false,
+			field: "user_id",
 		},
 		totalPrice: {
 			type: DataTypes.FLOAT,
 			allowNull: false,
+			field: "total_price",
 		},
 		status: {
 			type: DataTypes.STRING,
 			defaultValue: "Pending",
+		},
+		items: {
+			type: DataTypes.JSONB,
+			allowNull: false,
 		},
 	},
 	{
