@@ -7,7 +7,7 @@ async function createBook(req, res) {
 		const book = await Book.create(req.body);
 		res.status(201).json(book);
 	} catch (error) {
-		res.status(500).json({ message: "Internal server error" });
+		res.status(400).json({ message: "Invalid book data" });
 	}
 }
 
@@ -42,7 +42,7 @@ async function updateBook(req, res) {
 		await book.update(req.body);
 		res.status(200).json(book);
 	} catch (error) {
-		res.status(500).json({ message: "Internal server error" });
+		res.status(400).json({ message: "Invalid book data" });
 	}
 }
 
@@ -63,7 +63,6 @@ async function deleteBook(req, res) {
 		await book.destroy();
 		res.status(204).end();
 	} catch (error) {
-		console.log(error.message);
 		res.status(500).json({ message: "Internal server error" });
 	}
 }
@@ -87,7 +86,7 @@ async function searchBooks(req, res) {
 
 		res.status(200).json(books);
 	} catch (error) {
-		res.status(500).json({ message: "Internal server error" });
+		res.status(500).json({ message: "Invalid search parameters" });
 	}
 }
 

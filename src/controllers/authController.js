@@ -20,8 +20,7 @@ async function register(req, res) {
 
 		res.status(201).json({ message: "User registered successfully" });
 	} catch (error) {
-		console.error("Error registering user:", error);
-		res.status(500).json({ message: "Internal server error" });
+		res.status(400).json({ message: "Bad request" });
 	}
 }
 
