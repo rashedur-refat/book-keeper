@@ -5,7 +5,7 @@ const Cart = require("../models/Cart");
 async function createBook(req, res) {
 	try {
 		const book = await Book.create(req.body);
-		res.status(201).json(book);
+		res.status(200).json(book);
 	} catch (error) {
 		res.status(400).json({ message: "Invalid book data" });
 	}
@@ -16,7 +16,7 @@ async function getAllBooks(req, res) {
 		const books = await Book.findAll();
 		res.status(200).json(books);
 	} catch (error) {
-		res.status(500).json({ message: "Internal server error" });
+		res.status(400).json({ message: "Error fetching books!" });
 	}
 }
 
@@ -29,7 +29,7 @@ async function getBookById(req, res) {
 		}
 		res.status(200).json(book);
 	} catch (error) {
-		res.status(500).json({ message: "Internal server error" });
+		res.status(400).json({ message: "Error fetching book!" });
 	}
 }
 
@@ -56,14 +56,14 @@ async function deleteBook(req, res) {
 			where: { book_id: book.id },
 		});
 		if (cartsWithBook.length > 0) {
-			return res.status(409).json({
+			return res.status(403).json({
 				message: "Cannot delete book. It is referenced in active carts.",
 			});
 		}
 		await book.destroy();
-		res.status(204).end();
+		res.status(200).json({ message: "Book deleted successfully" });
 	} catch (error) {
-		res.status(500).json({ message: "Internal server error" });
+		res.status(400).json({ message: "Error deleting book" });
 	}
 }
 
@@ -86,7 +86,7 @@ async function searchBooks(req, res) {
 
 		res.status(200).json(books);
 	} catch (error) {
-		res.status(500).json({ message: "Invalid search parameters" });
+		res.status(400).json({ message: "Error fetching books" });
 	}
 }
 

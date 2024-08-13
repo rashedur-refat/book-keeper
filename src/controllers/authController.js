@@ -9,16 +9,16 @@ async function register(req, res) {
 			where: { email: req.body.email },
 		});
 		if (existingUser) {
-			return res.status(401).json({ message: "User already exists" });
+			return res.status(400).json({ message: "User already exists" });
 		}
 		const hashedPassword = await bcrypt.hash(req.body.password, 10);
-		const user = await User.create({
+		await User.create({
 			username: req.body.username,
 			email: req.body.email,
 			password: hashedPassword,
 		});
 
-		res.status(201).json({ message: "User registered successfully" });
+		res.status(200).json({ message: "User registered successfully" });
 	} catch (error) {
 		res.status(400).json({ message: "Bad request" });
 	}
@@ -43,8 +43,7 @@ async function login(req, res) {
 		});
 		res.status(200).json({ token });
 	} catch (error) {
-		console.error("Error logging in user:", error);
-		res.status(500).json({ message: "Internal server error" });
+		res.status(400).json({ message: "Bad request" });
 	}
 }
 

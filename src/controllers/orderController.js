@@ -31,9 +31,9 @@ async function placeOrder(req, res) {
 
 		await Cart.destroy({ where: { userId } });
 
-		res.status(201).json(order);
+		res.status(200).json(order);
 	} catch (error) {
-		res.status(500).json({ message: "Internal server error" });
+		res.status(400).json({ message: "Error placing order" });
 	}
 }
 
@@ -54,7 +54,7 @@ async function updateOrderStatus(req, res) {
 
 		res.status(200).json({ message: "Order status updated successfully" });
 	} catch (error) {
-		res.status(500).json({ message: "Internal server error" });
+		res.status(400).json({ message: "Error updating order status" });
 	}
 }
 
@@ -69,7 +69,7 @@ async function getOrderHistory(req, res) {
 
 		res.status(200).json(orderHistory);
 	} catch (error) {
-		res.status(500).json({ message: "Internal server error" });
+		res.status(400).json({ message: "Error fetching order history" });
 	}
 }
 
