@@ -23,14 +23,16 @@ const orderController = require("../controllers/orderController");
  *           schema:
  *             $ref: '#/components/schemas/Order'
  *     responses:
- *       201:
- *         description: Order placed successfully
+ *       200:
+ *         description: Order data
  *         content:
  *           application/json:
  *             schema:
  *               $ref: '#/components/schemas/Order'
+ *       404:
+ *         description: Book not found
  *       400:
- *         description: Bad request (e.g., invalid order data)
+ *         description: Invalid Input data/Error placing order
  */
 router.post("/place", orderController.placeOrder);
 
@@ -56,12 +58,10 @@ router.post("/place", orderController.placeOrder);
  *     responses:
  *       200:
  *         description: Order status updated successfully
- *       400:
- *         description: Bad request (e.g., invalid order data)
  *       404:
  *         description: Order not found
- *       500:
- *         description: Internal server error
+ *       400:
+ *         description: Status is required/Error updating order status
  * */
 router.put("/update-status/:id", orderController.updateOrderStatus);
 
@@ -87,10 +87,8 @@ router.put("/update-status/:id", orderController.updateOrderStatus);
  *               type: array
  *               items:
  *                 $ref: '#/components/schemas/Order'
- *       404:
- *         description: User not found
- *       500:
- *         description: Internal server error
+ *       400:
+ *         description: Error fetching order history
  * */
 router.get("/history/:userId", orderController.getOrderHistory);
 

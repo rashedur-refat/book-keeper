@@ -1,6 +1,10 @@
 const express = require("express");
 const router = express.Router();
 const authController = require("../controllers/authController");
+const {
+	UserRegisterValidator,
+	UserLoginValidator,
+} = require("../middlewares/validatorMiddleware");
 
 /**
  * @swagger
@@ -25,12 +29,10 @@ const authController = require("../controllers/authController");
  *     responses:
  *       200:
  *         description: Successful registration
- *       401:
- *         description: User already exists
  *       400:
- *         description: Bad request
+ *         description: User already exists
  */
-router.post("/register", authController.register);
+router.post("/register", UserRegisterValidator, authController.register);
 
 /**
  * @swagger
@@ -48,10 +50,12 @@ router.post("/register", authController.register);
  *     responses:
  *       200:
  *         description: Successful login
+ *       401:
+ *         description: Invalid email or password
  *       400:
  *         description: Bad request
  */
-router.post("/login", authController.login);
+router.post("/login", UserLoginValidator, authController.login);
 
 /**
  * @swagger

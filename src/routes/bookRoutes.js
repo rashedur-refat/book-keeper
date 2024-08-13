@@ -23,14 +23,14 @@ const bookController = require("../controllers/bookController");
  *           schema:
  *             $ref: '#/components/schemas/Book'
  *     responses:
- *       201:
+ *       200:
  *         description: Book created successfully
  *         content:
  *           application/json:
  *             schema:
  *               $ref: '#/components/schemas/Book'
  *       400:
- *         description: Bad request (e.g., invalid book data)
+ *         description: Invalid book data
  */
 router.post("/", bookController.createBook);
 
@@ -60,7 +60,7 @@ router.post("/", bookController.createBook);
  *               items:
  *                 $ref: '#/components/schemas/Book'
  *       400:
- *         description: Bad request (e.g., invalid search parameters)
+ *         description: Error fetching books
  */
 router.get("/search", bookController.searchBooks);
 
@@ -86,6 +86,8 @@ router.get("/search", bookController.searchBooks);
  *               $ref: '#/components/schemas/Book'
  *       404:
  *         description: Book not found
+ *       400:
+ *         description: Error fetching book
  */
 router.get("/:id", bookController.getBookById);
 
@@ -134,10 +136,10 @@ router.get("/", bookController.getAllBooks);
  *           application/json:
  *             schema:
  *               $ref: '#/components/schemas/Book'
- *       400:
- *         description: Bad request (e.g., invalid book data)
  *       404:
  *         description: Book not found
+ *       400:
+ *         description: Error Updating Book
  */
 router.put("/:id", bookController.updateBook);
 
@@ -155,10 +157,14 @@ router.put("/:id", bookController.updateBook);
  *         required: true
  *         type: integer
  *     responses:
- *       204:
+ *       200:
  *         description: Book deleted successfully (no content)
  *       409:
  *         description: Cannot delete book. It is referenced in active carts.
+ *       404:
+ *         description: Book not found
+ *       400:
+ *         description: Error deleting book
  */
 router.delete("/:id", bookController.deleteBook);
 

@@ -20,7 +20,7 @@ async function register(req, res) {
 
 		res.status(200).json({ message: "User registered successfully" });
 	} catch (error) {
-		res.status(400).json({ message: "Bad request" });
+		res.status(400).json({ message: "Error registering user" });
 	}
 }
 
@@ -43,7 +43,7 @@ async function login(req, res) {
 		});
 		res.status(200).json({ token });
 	} catch (error) {
-		res.status(400).json({ message: "Bad request" });
+		res.status(400).json({ message: "Error logging in" });
 	}
 }
 

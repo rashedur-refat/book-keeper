@@ -23,10 +23,12 @@ const cartController = require("../controllers/cartController");
  *           schema:
  *             $ref: '#/components/schemas/Cart'
  *     responses:
- *       201:
- *         description: Book added to cart
+ *       200:
+ *         description: Added Cart Data
  *       400:
- *         description: Bad request (e.g., invalid cart data)
+ *         description: Invalid Input Data/Error adding book to cart
+ *       404:
+ *         description: User/Book not found
  */
 router.post("/add", cartController.addToCart);
 
@@ -41,7 +43,8 @@ router.post("/add", cartController.addToCart);
  *         name: id
  *         description: The ID of the cart item to update
  *         required: true
- *         type: integer
+ *         schema:
+ *           type: integer
  *     requestBody:
  *       required: true
  *       content:
@@ -50,14 +53,12 @@ router.post("/add", cartController.addToCart);
  *             $ref: '#/components/schemas/Cart'
  *     responses:
  *       200:
- *         description: Cart item updated successfully
+ *         description: Updated Cart Data
  *       400:
- *         description: Bad request (e.g., invalid cart data)
+ *         description: Invalid Quantity/Error updating cart
  *       404:
- *         description: Cart item not found
- *       500:
- *         description: Internal server error
- * */
+ *         description: Cart item not found/Associated book not found
+ */
 router.put("/update/:id", cartController.updateCartItem);
 
 /**
@@ -71,15 +72,16 @@ router.put("/update/:id", cartController.updateCartItem);
  *         name: id
  *         description: The ID of the cart item to remove
  *         required: true
- *         type: integer
+ *         schema:
+ *           type: integer
  *     responses:
  *       200:
  *         description: Cart item removed successfully
  *       404:
  *         description: Cart item not found
- *       500:
- *         description: Internal server error
- * */
+ *       400:
+ *         description: Cart item ID is required/Error removing cart item
+ */
 router.delete("/remove/:id", cartController.removeCartItem);
 
 /**
