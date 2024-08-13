@@ -8,7 +8,17 @@ const sequelize = new Sequelize(
 	{
 		host: process.env.DB_HOST,
 		dialect: "postgres",
+		logging: false,
 	}
 );
+
+sequelize
+	.authenticate()
+	.then(() => {
+		console.log("DATABASE CONNECTED");
+	})
+	.catch((err) => {
+		console.log(err);
+	});
 
 module.exports = sequelize;
